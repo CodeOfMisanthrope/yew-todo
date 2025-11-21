@@ -1,6 +1,8 @@
 mod app;
-mod task_input;
 mod task;
+mod task_input;
+mod task_item;
+mod task_list;
 
 use app::App;
 use tracing_subscriber::{filter::Targets, prelude::*};

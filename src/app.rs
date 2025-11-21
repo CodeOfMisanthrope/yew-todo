@@ -2,6 +2,7 @@ use yew::prelude::*;
 // use crate::task_input::TaskInput;
 use super::task::TaskDto;
 use super::task_input::TaskInput;
+use super::task_list::TaskList;
 
 #[function_component(App)]
 pub fn app() -> Html {
@@ -21,16 +22,34 @@ pub fn app() -> Html {
             next_id.set(*next_id + 1);
         })
     };
+
+    let on_delete = {
+        let tasks = tasks.clone();
+        Callback::from(move |id: usize| {
+            let new_tasks: Vec<TaskDto> = (*tasks)
+                .iter()
+                .filter(|task| task.id != id)
+                .cloned()
+                .collect();
+            tasks.set(new_tasks);
+        })
+    };
     
     html! {
         <>
             <div class="container">
                 <div class="header">
-                    <h1>{"📝 Список задач"}</h1>
+                    <h1>{"Список задач на Yew"}</h1>
                 </div>
 
                 <TaskInput {on_add} />
         
+                <div class="tasks-container">
+                    <div class="tasks-header">
+                        {format!("Задачи: ({})", tasks.len())}
+                    </div>
+                    <TaskList tasks={(*tasks).clone()} {on_delete} />
+                </div>
             </div>
         </>
     }
