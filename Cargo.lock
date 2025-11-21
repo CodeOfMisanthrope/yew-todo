@@ -1377,5 +1377,6 @@ dependencies = [
  "tracing",
  "tracing-subscriber",
  "tracing-web",
+ "web-sys",
  "yew",
 ]
